@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroVision - Farmer's Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-green: #2e7d32;
+            --light-green: #4caf50;
+            --lighter-green: #8bc34a;
+            --cream: #f1f8e9;
+            --dark-brown: #5d4037;
+            --light-brown: #8d6e63;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        nav {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--primary-green);
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--lighter-green);
+            color: white;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--light-green);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .features {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-green);
+            margin-bottom: 3rem;
+            font-size: 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            background: var(--light-green);
+            color: white;
+            font-size: 2.5rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .feature-content {
+            padding: 1.5rem;
+        }
+
+        .feature-content h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .calculator {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator h3 {
+            text-align: center;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-brown);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .calculator-result {
+            background: var(--lighter-green);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .chatbot {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+
+        .chatbot-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            background: #e0e0e0;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background: var(--light-green);
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+
+        .chatbot-input button {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: var(--dark-brown);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .chatbot-window {
+                width: 300px;
+                right: -20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            <h1>AgroVision</h1>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#crop-prediction">Crop Prediction</a></li>
+            <li><a href="#market-prices">Market Prices</a></li>
+            <li><a href="#weather">Weather</a></li>
+            <li><a href="#pesticides">Pesticides</a></li>
+            <li><a href="#fertilizers">Fertilizers</a></li>
+            <li><a href="#sowing-harvesting">Sowing & Harvesting</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Empowering Farmers with Smart Agriculture</h2>
+            <p>Get accurate predictions for crop yields, market prices, weather conditions and expert advice on
+                fertilizers and pesticides</p>
+            <a href="#calculator" class="btn">Calculate Fertilizer Needs</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">Our Services</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Crop Yield Prediction</h3>
+                    <p>Get accurate predictions of crop yields based on historical data, soil conditions, and weather
+                        patterns to plan your harvest better.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Market Prices</h3>
+                    <p>Access real-time market prices from nearby mills and markets to get the best value for your
+                        produce.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Weather Forecast</h3>
+                    <p>Get accurate 7-day weather forecasts tailored to your farm's location to plan agricultural
+                        activities.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Fertilizer Calculator</h3>
+                    <p>Calculate the exact amount of fertilizers needed for your land based on soil type and crop
+                        requirements.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Pesticide Advice</h3>
+                    <p>Get expert recommendations on pesticides and supplements for your crops to ensure healthy growth.
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Sowing & Harvesting Calendar</h3>
+                    <p>Optimal timing for sowing and harvesting various crops based on seasonal patterns and regional
+                        climate.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fertilizer Calculator -->
+    <section class="features" id="calculator">
+        <h2 class="section-title">Fertilizer Calculator</h2>
+        <div class="calculator">
+            <h3>Calculate the right amount of fertilizers for your land</h3>
+            <div class="form-group">
+                <label for="crop-type">Crop Type</label>
+                <select id="crop-type">
+                    <option value="">Select Crop</option>
+                    <option value="wheat">Wheat</option>
+                    <option value="rice">Rice</option>
+                    <option value="corn">Corn</option>
+                    <option value="sugarcane">Sugarcane</option>
+                    <option value="cotton">Cotton</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="land-area">Land Area (in acres)</label>
+                <input type="number" id="land-area" placeholder="Enter land area">
+            </div>
+            <div class="form-group">
+                <label for="soil-type">Soil Type</label>
+                <select id="soil-type">
+                    <option value="">Select Soil Type</option>
+                    <option value="sandy">Sandy</option>
+                    <option value="loamy">Loamy</option>
+                    <option value="clay">Clay</option>
+                    <option value="silt">Silt</option>
+                </select>
+            </div>
+            <button class="btn" onclick="calculateFertilizer()">Calculate</button>
+            <div class="calculator-result" id="calculator-result">
+                <!-- Result will be displayed here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <div class="chatbot-btn" id="chatbot-btn">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                AgroVision Assistant
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    Hello! I'm AgroVision Assistant. How can I help you with your farming needs today?
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 AgroVision - Farmer's Assistant Platform</p>
+        <p>Contact: info@agrovision.com | Phone: +1 234 567 8900</p>
+    </footer>
+
+    <script>
+        // Toggle chatbot window
+        document.getElementById('chatbot-btn').addEventListener('click', function () {
+            const chatbotWindow = document.getElementById('chatbot-window');
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Send message function
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+
+            if (message !== '') {
+                const chatMessages = document.getElementById('chatbot-messages');
+
+                // Add user message
+                const userMessageElement = document.createElement('div');
+                userMessageElement.classList.add('message', 'user-message');
+                userMessageElement.textContent = message;
+                chatMessages.appendChild(userMessageElement);
+
+                // Clear input
+                userInput.value = '';
+
+                // Simulate bot response
+                setTimeout(() => {
+                    const botMessageElement = document.createElement('div');
+                    botMessageElement.classList.add('message', 'bot-message');
+
+                    // Simple response logic
+                    if (message.toLowerCase().includes('fertilizer')) {
+                        botMessageElement.textContent = 'For fertilizer recommendations, please use our fertilizer calculator tool. You can input your crop type, land area, and soil type for precise suggestions.';
+                    } else if (message.toLowerCase().includes('weather')) {
+                        botMessageElement.textContent = 'I can provide general weather advice. For accurate forecasts, please check the weather section on our website.';
+                    } else if (message.toLowerCase().includes('price')) {
+                        botMessageElement.textContent = 'Market prices vary daily. Check our Market Prices section for real-time updates from nearby mills.';
+                    } else if (message.toLowerCase().includes('pesticide')) {
+                        botMessageElement.textContent = 'Pesticide recommendations depend on your specific crop and pest type. Please provide more details for accurate advice.';
+                    } else {
+                        botMessageElement.textContent = 'Thank you for your message. For more specific information, please explore the relevant sections of our website or provide more details about your query.';
+                    }
+
+                    chatMessages.appendChild(botMessageElement);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        // Allow sending message with Enter key
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Fertilizer calculator function
+        function calculateFertilizer() {
+            const cropType = document.getElementById('crop-type').value;
+            const landArea = document.getElementById('land-area').value;
+            const soilType = document.getElementById('soil-type').value;
+            const resultDiv = document.getElementById('calculator-result');
+
+            if (!cropType || !landArea || !soilType) {
+                resultDiv.textContent = 'Please fill all fields to calculate fertilizer requirements.';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            // Simple calculation logic (for demonstration only)
+            const baseValues = {
+                wheat: { nitrogen: 120, phosphorus: 60, potassium: 40 },
+                rice: { nitrogen: 150, phosphorus: 70, potassium: 60 },
+                corn: { nitrogen: 180, phosphorus: 80, potassium: 80 },
+                sugarcane: { nitrogen: 200, phosphorus: 100, potassium: 120 },
+                cotton: { nitrogen: 160, phosphorus: 80, potassium: 60 }
+            };
+
+            const soilMultipliers = {
+                sandy: 1.2,
+                loamy: 1.0,
+                clay: 0.8,
+                silt: 1.1
+            };
+
+            const multiplier = soilMultipliers[soilType] || 1;
+            const n = baseValues[cropType].nitrogen * landArea * multiplier;
+            const p = baseValues[cropType].phosphorus * landArea * multiplier;
+            const k = baseValues[cropType].potassium * landArea * multiplier;
+
+            resultDiv.innerHTML = `
+                <h3>Fertilizer Recommendation for ${landArea} acres of ${cropType} (${soilType} soil)</h3>
+                <p>Nitrogen (N): ${n.toFixed(2)} kg</p>
+                <p>Phosphorus (P₂O₅): ${p.toFixed(2)} kg</p>
+                <p>Potassium (K₂O): ${k.toFixed(2)} kg</p>
+                <p>Note: These are general recommendations. Soil testing is recommended for precise fertilizer application.</p>
+            `;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
