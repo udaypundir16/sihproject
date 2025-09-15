@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)  # allow frontend to call backend
 
 # Configure Gemini
-genai.configure(api_key="AIzaSyCIzfRRFPtwYQvgrMPozx4DqYQwjCcpMd8")
+genai.configure(api_key="enter your gemini api key here")
 model = genai.GenerativeModel("gemini-1.5-flash")
 from flask import Flask, render_template
 
