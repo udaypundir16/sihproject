@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroVision - Smart Farmer’s Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <i class="fas fa-leaf"></i>
+      <h1>Agriculture Details</h1>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="#crop-prediction">Crop Prediction</a></li>
+      <li><a href="#market-prices">Market Prices</a></li>
+      <li><a href="#weather">Weather</a></li>
+      <li><a href="#pesticides">Pesticides</a></li>
+      <li><a href="#fertilizers">Fertilizers</a></li>
+      <li><a href="#offers">Offers</a></li>
+      <li><a href="#map">Nearby Mills</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Empowering Farmers with AI + Data</h2>
+      <p>Smart predictions, fertilizer calculators, live weather & market prices in one platform.</p>
+      <a href="#calculator" class="btn">Try Fertilizer Calculator</a>
+    </div>
+  </section>
+
+  <!-- Fertilizer Calculator -->
+  <section id="calculator" class="features">
+    <h2 class="section-title">Fertilizer Calculator</h2>
+    <div class="calculator">
+      <label>Crop Type</label>
+      <select id="crop"><option value="wheat">Wheat</option><option value="rice">Rice</option><option value="corn">Corn</option><option value="sugarcane">Sugarcane</option><option value="cotton">Cotton</option></select>
+      <label>Land Area (acres)</label>
+      <input type="number" id="area">
+      <label>Soil Type</label>
+      <select id="soil"><option value="loamy">Loamy</option><option value="sandy">Sandy</option><option value="clay">Clay</option><option value="silt">Silt</option></select>
+      <button onclick="calculateFertilizer()">Calculate</button>
+      <div id="fertilizer-result"></div>
+    </div>
+  </section>
+
+  <!-- Market Prices -->
+  <section id="market-prices" class="features">
+    <h2 class="section-title">Market Prices</h2>
+    <p>Live crop prices from nearby markets (dummy data for now).</p>
+    <ul>
+      <li>Wheat: ₹2100 / quintal</li>
+      <li>Rice: ₹2500 / quintal</li>
+      <li>Corn: ₹1800 / quintal</li>
+    </ul>
+  </section>
+
+  <!-- Weather -->
+  <section id="weather" class="features">
+    <h2 class="section-title">Weather Forecast</h2>
+    <div id="weather-info">Loading weather...</div>
+  </section>
+
+  <!-- Offers -->
+  <section id="offers" class="features">
+    <h2 class="section-title">Upcoming Offers</h2>
+    <ul>
+      <li>50% discount on urea fertilizer - till Sept 15</li>
+      <li>Buy 2 get 1 free pesticide pack - valid this month</li>
+    </ul>
+  </section>
+
+  <!-- Map -->
+  <section id="map" class="features">
+    <h2 class="section-title">Nearby Mills & Markets</h2>
+    <iframe src="https://www.google.com/maps/embed?...your_location..." width="100%" height="400"></iframe>
+  </section>
+
+  <!-- Chatbot -->
+  <div class="chatbot">
+    <div class="chatbot-btn" onclick="toggleChat()"><i class="fas fa-comments"></i></div>
+    <div class="chatbot-window" id="chat-window">
+      <div class="chatbot-header">AgroVision Assistant</div>
+      <div class="chatbot-messages" id="chat-messages"></div>
+      <div class="chatbot-input">
+        <input id="chat-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 AgroVision | Smart Farming Platform</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

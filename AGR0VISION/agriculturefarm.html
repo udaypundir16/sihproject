@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroVision - Smart Farming Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --accent-color: #FFC107;
+            --dark-color: #2E7D32;
+            --light-color: #F1F8E9;
+            --text-color: #212121;
+            --text-light: #757575;
+            --background: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--dark-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1B5E20;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: #333;
+        }
+
+        .btn-accent:hover {
+            background-color: #FFA000;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&h=600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Features Grid */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            color: var(--dark-color);
+            font-size: 2rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 2rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .feature-content {
+            padding: 20px;
+        }
+
+        .feature-content h3 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        /* Dashboard Section */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .dashboard-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Market Prices */
+        .price-list {
+            list-style: none;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Weather Forecast */
+        .weather-forecast {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .weather-day {
+            min-width: 100px;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+        }
+
+        /* Crop Prediction Form */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Cart Section */
+        .cart-items {
+            list-style: none;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            font-weight: bold;
+            text-align: right;
+            margin-top: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Chat Section */
+        .chat-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background-color: var(--secondary-color);
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.farmer {
+            background-color: #E0E0E0;
+            color: var(--text-color);
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        /* Disease Detection */
+        .disease-detection {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: #f9f9f9;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .result-area {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+        }
+
+        /* Chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            transition: var(--transition);
+            transform: translateY(calc(100% - 50px));
+        }
+
+        .chatbot-container.open {
+            transform: translateY(0);
+        }
+
+        .chatbot-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #E0E0E0;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            .auth-buttons {
+                margin-top: 15px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .chatbot-container {
+                width: 300px;
+                right: 10px;
+                bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div style="margin-right: 20px;">
+            <button id="themeToggle" class="btn btn-accent" title="Toggle Theme">
+                <i class="fas fa-moon"></i> Theme
+            </button>
+        </div>
+        <script>
+            // Theme toggle functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const themeToggle = document.getElementById('themeToggle');
+                let darkMode = false;
+
+                themeToggle.addEventListener('click', function() {
+                    darkMode = !darkMode;
+                    if (darkMode) {
+                        document.documentElement.style.setProperty('--primary-color', '#212121');
+                        document.documentElement.style.setProperty('--secondary-color', '#424242');
+                        document.documentElement.style.setProperty('--accent-color', '#FFC107');
+                        document.documentElement.style.setProperty('--dark-color', '#111');
+                        document.documentElement.style.setProperty('--light-color', '#181818');
+                        document.documentElement.style.setProperty('--background', '#181818');
+                        document.documentElement.style.setProperty('--card-bg', '#232323');
+                        document.documentElement.style.setProperty('--text-color', '#f1f1f1');
+                        document.documentElement.style.setProperty('--text-light', '#bdbdbd');
+                        themeToggle.innerHTML = '<i class="fas fa-sun"></i> Theme';
+                    } else {
+                        document.documentElement.style.setProperty('--primary-color', '#4CAF50');
+                        document.documentElement.style.setProperty('--secondary-color', '#8BC34A');
+                        document.documentElement.style.setProperty('--accent-color', '#FFC107');
+                        document.documentElement.style.setProperty('--dark-color', '#2E7D32');
+                        document.documentElement.style.setProperty('--light-color', '#F1F8E9');
+                        document.documentElement.style.setProperty('--background', '#FFFFFF');
+                        document.documentElement.style.setProperty('--card-bg', '#FFFFFF');
+                        document.documentElement.style.setProperty('--text-color', '#212121');
+                        document.documentElement.style.setProperty('--text-light', '#757575');
+                        themeToggle.innerHTML = '<i class="fas fa-moon"></i> Theme';
+                    }
+                });
+            });
+        </script>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>AgroVision</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#crop-prediction">Crop Prediction</a></li>
+                    <li><a href="#market">Market Prices</a></li>
+                    <li><a href="#weather">Weather</a></li>
+                    <li><a href="#tools">Farming Tools</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline">Login</button>
+                <button class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Smart Farming for a Sustainable Future</h2>
+            <p>AgroVision provides farmers with cutting-edge tools for crop prediction, weather forecasting, market analysis, and community support.</p>
+            <button class="btn btn-primary">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container">
+        <h2 class="section-title">Our Features</h2>
+        <p class="section-subtitle">AgroVision offers a comprehensive suite of tools designed specifically for modern farmers to increase productivity and profitability.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Crop Prediction</h3>
+                    <p>Get AI-powered recommendations for the best crops to plant based on your soil and climate conditions.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Market Prices</h3>
+                    <p>Track real-time market prices for various crops and make informed selling decisions.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Weather Forecast</h3>
+                    <p>Access accurate 7-day weather forecasts tailored to your specific location.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Farming Store</h3>
+                    <p>Purchase quality fertilizers, pesticides, and farming equipment directly from our platform.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Sowing & Harvesting Calendar</h3>
+                    <p>Plan your farming activities with optimal sowing and harvesting dates for various crops.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Crop Disease Detection</h3>
+                    <p>Upload images of your crops to detect diseases and get treatment recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="container">
+        <h2 class="section-title">Farmer's Dashboard</h2>
+        <p class="section-subtitle">Your personalized dashboard with all the essential information you need for successful farming operations.</p>
+        <div class="dashboard">
+            <div class="dashboard-card">
+                <h3>Current Market Prices</h3>
+                <ul class="price-list">
+                    <li class="price-item">
+                        <span>Wheat</span>
+                        <span>$210/ton</span>
+                    </li>
+                    <li class="price-item">
+                        <span>Rice</span>
+                        <span>$320/ton</span>
+                    </li>
+                    <li class="price-item">
+                        <span>Corn</span>
+                        <span>$180/ton</span>
+                    </li>
+                    <li class="price-item">
+                        <span>Sugarcane</span>
+                        <span>$45/ton</span>
+                    </li>
+                    <li class="price-item">
+                        <span>Cotton</span>
+                        <span>$1.50/kg</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard-card">
+                <h3>7-Day Weather Forecast</h3>
+                <div class="weather-forecast">
+                    <div class="weather-day">
+                        <p>Today</p>
+                        <i class="fas fa-sun"></i>
+                        <p>28°C</p>
+                    </div>
+                    <div class="weather-day">
+                        <p>Mon</p>
+                        <i class="fas fa-cloud-sun"></i>
+                        <p>27°C</p>
+                    </div>
+                    <div class="weather-day">
+                        <p>Tue</p>
+                        <i class="fas fa-cloud"></i>
+                        <p>26°C</p>
+                    </div>
+                    <div class="weather-day">
+                        <p>Wed</p>
+                        <i class="fas fa-cloud-rain"></i>
+                        <p>24°C</p>
+                    </div>
+                    <div class="weather-day">
+                        <p>Thu</p>
+                        <i class="fas fa-cloud-sun"></i>
+                        <p>26°C</p>
+                    </div>
+                    <div class="weather-day">
+                        <p>Fri</p>
+                        <i class="fas fa-sun"></i>
+                        <p>28°C</p>
+                    </div>
+                    <div class="weather-day">
+                        <p>Sat</p>
+                        <i class="fas fa-sun"></i>
+                        <p>29°C</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Crop Yield Prediction</h3>
+                <canvas id="yieldChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disease Detection Section -->
+    <section class="container">
+        <h2 class="section-title">Crop Disease Detection</h2>
+        <p class="section-subtitle">Upload an image of your crop to detect potential diseases and get treatment recommendations.</p>
+        <div class="disease-detection">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Upload Crop Image</h3>
+                <p>Click or drag an image here to analyze for diseases</p>
+                <input type="file" id="fileInput" style="display: none;" accept="image/*">
+            </div>
+            <button class="btn btn-primary" id="analyzeBtn" style="width: 100%;">Analyze Image</button>
+            
+            <div class="result-area" id="resultArea">
+                <h3>Analysis Results</h3>
+                <div id="diseaseResult"></div>
+                <h4 style="margin-top: 15px;">Recommended Treatment</h4>
+                <div id="treatmentRecommendation"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crop Prediction Section -->
+    <section id="crop-prediction" class="container">
+        <h2 class="section-title">Crop Prediction</h2>
+        <p class="section-subtitle">Enter your farm details to get AI-powered recommendations for the best crops to cultivate.</p>
+        <div class="dashboard-card">
+            <form id="prediction-form">
+                <div class="form-group">
+                    <label for="soil-type">Soil Type</label>
+                    <select class="form-control" id="soil-type">
+                        <option value="">Select Soil Type</option>
+                        <option value="loamy">Loamy</option>
+                        <option value="clay">Clay</option>
+                        <option value="sandy">Sandy</option>
+                        <option value="silt">Silt</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ph-level">pH Level</label>
+                    <input type="number" class="form-control" id="ph-level" step="0.1" min="0" max="14">
+                </div>
+                <div class="form-group">
+                    <label for="rainfall">Annual Rainfall (mm)</label>
+                    <input type="number" class="form-control" id="rainfall">
+                </div>
+                <div class="form-group">
+                    <label for="temperature">Average Temperature (°C)</label>
+                    <input type="number" class="form-control" id="temperature">
+                </div>
+                <div class="form-group">
+                    <label for="humidity">Average Humidity (%)</label>
+                    <input type="number" class="form-control" id="humidity" min="0" max="100">
+                </div>
+                <button type="submit" class="btn btn-primary">Predict Crop</button>
+            </form>
+            <div id="prediction-result" style="margin-top: 20px; display: none;">
+                <h3>Recommended Crops</h3>
+                <div id="crop-recommendations"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Analysis Section -->
+    <section id="market" class="container">
+        <h2 class="section-title">Market Analysis</h2>
+        <p class="section-subtitle">Track price trends and make informed decisions about when to sell your produce.</p>
+        <div class="dashboard-card">
+            <h3>Price Trends</h3>
+            <canvas id="priceChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Fertilizer Calculator -->
+    <section id="tools" class="container">
+        <h2 class="section-title">Farming Tools</h2>
+        <p class="section-subtitle">Use our calculators and tools to optimize your farming operations.</p>
+        <div class="dashboard-card">
+            <h3>Fertilizer Calculator</h3>
+            <form id="fertilizer-form">
+                <div class="form-group">
+                    <label for="crop-type">Crop Type</label>
+                    <select class="form-control" id="crop-type">
+                        <option value="">Select Crop</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="rice">Rice</option>
+                        <option value="corn">Corn</option>
+                        <option value="sugarcane">Sugarcane</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="area">Area (acres)</label>
+                    <input type="number" class="form-control" id="area">
+                </div>
+                <div class="form-group">
+                    <label for="soil-nutrient">Soil Nutrient Level</label>
+                    <select class="form-control" id="soil-nutrient">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Calculate</button>
+            </form>
+            <div id="fertilizer-result" style="margin-top: 20px; display: none;">
+                <h4>Recommended Fertilizers</h4>
+                <div id="fertilizer-recommendations"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Chat -->
+    <section id="community" class="container">
+        <h2 class="section-title">Farmer Community</h2>
+        <p class="section-subtitle">Connect with other farmers, share experiences, and get advice from agricultural experts.</p>
+        <div class="dashboard-card">
+            <h3>Chat with Other Farmers</h3>
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message farmer">
+                        <strong>Rajesh (Cotton Farmer):</strong> Has anyone tried the new organic pesticide?
+                    </div>
+                    <div class="message user">
+                        <strong>You:</strong> Not yet. Is it effective?
+                    </div>
+                    <div class="message farmer">
+                        <strong>Suresh (Wheat Farmer):</strong> Yes, I used it last week. Working well so far.
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Type your message...">
+                    <button class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <!-- Gemini API Integration -->
+    <script>
+        // Gemini API integration for chatbot
+        // Replace YOUR_GEMINI_API_KEY with your actual API key
+        async function fetchGeminiResponse(userMessage) {
+            const apiKey = 'YOUR_GEMINI_API_KEY';
+            const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: userMessage }]
+                }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0].text) {
+                    return data.candidates[0].content.parts[0].text;
+                } else {
+                    return "Sorry, I couldn't get a response from Gemini.";
+                }
+            } catch (error) {
+                return "Sorry, there was an error connecting to Gemini API.";
+            }
+        }
+
+        // Override chatbot send button to use Gemini API
+        document.addEventListener('DOMContentLoaded', function() {
+            const sendChatbotMessage = document.getElementById('sendChatbotMessage');
+            const chatbotInput = document.getElementById('chatbotInput');
+            const chatbotMessages = document.getElementById('chatbotMessages');
+
+            async function addGeminiChatbotMessage(message, isUser = false) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(isUser ? 'user' : 'farmer');
+                if (isUser) {
+                    messageElement.innerHTML = `<strong>You:</strong> ${message}`;
+                } else {
+                    messageElement.innerHTML = `<strong>AgroBot:</strong> ${message}`;
+                }
+                chatbotMessages.appendChild(messageElement);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            sendChatbotMessage.addEventListener('click', async function() {
+                const userMessage = chatbotInput.value.trim();
+                if (userMessage !== '') {
+                    addGeminiChatbotMessage(userMessage, true);
+                    chatbotInput.value = '';
+                    addGeminiChatbotMessage('<i class="fas fa-spinner fa-spin"></i> Thinking...', false);
+
+                    const botResponse = await fetchGeminiResponse(userMessage);
+
+                    // Remove spinner
+                    const spinner = chatbotMessages.querySelector('.message.farmer:last-child');
+                    if (spinner && spinner.innerHTML.includes('fa-spinner')) {
+                        spinner.remove();
+                    }
+
+                    addGeminiChatbotMessage(botResponse, false);
+                }
+            });
+
+            chatbotInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendChatbotMessage.click();
+                }
+            });
+        });
+    </script>
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <h3>AgroVision Assistant</h3>
+            <i class="fas fa-times" id="closeChatbot"></i>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message farmer">
+                <strong>AgroBot:</strong> Hello! I'm your farming assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbotInput" placeholder="Ask a question about farming...">
+            <button class="btn btn-primary" id="sendChatbotMessage">Send</button>
+        </div>
+    </div>
+    <div class="chatbot-toggle" id="chatbotToggle">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AgroVision</h3>
+                    <p>Empowering farmers with technology for sustainable agriculture and improved livelihoods.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#crop-prediction">Crop Prediction</a></li>
+                        <li><a href="#market">Market Prices</a></li>
+                        <li><a href="#weather">Weather Forecast</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Farm Road, Agricultural Zone</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> support@agrovision.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 AgroVision. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Yield Prediction Chart
+            const yieldCtx = document.getElementById('yieldChart').getContext('2d');
+            const yieldChart = new Chart(yieldCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Wheat', 'Rice', 'Corn', 'Sugarcane'],
+                    datasets: [{
+                        label: 'Yield (tons/hectare)',
+                        data: [4.5, 5.2, 6.1, 65.3],
+                        backgroundColor: [
+                            'rgba(76, 175, 80, 0.7)',
+                            'rgba(139, 195, 74, 0.7)',
+                            'rgba(205, 220, 57, 0.7)',
+                            'rgba(255, 193, 7, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(76, 175, 80, 1)',
+                            'rgba(139, 195, 74, 1)',
+                            'rgba(205, 220, 57, 1)',
+                            'rgba(255, 193, 7, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Price Trend Chart
+            const priceCtx = document.getElementById('priceChart').getContext('2d');
+            const priceChart = new Chart(priceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [
+                        {
+                            label: 'Wheat',
+                            data: [200, 210, 220, 215, 230, 240],
+                            borderColor: 'rgba(76, 175, 80, 1)',
+                            tension: 0.1,
+                            fill: false
+                        },
+                        {
+                            label: 'Rice',
+                            data: [300, 310, 320, 315, 330, 340],
+                            borderColor: 'rgba(139, 195, 74, 1)',
+                            tension: 0.1,
+                            fill: false
+                        },
+                        {
+                            label: 'Corn',
+                            data: [170, 175, 180, 175, 185, 190],
+                            borderColor: 'rgba(205, 220, 57, 1)',
+                            tension: 0.1,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    }
+                }
+            });
+
+            // Crop Prediction Form
+            document.getElementById('prediction-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Mock prediction results
+                const crops = [
+                    { name: "Wheat", suitability: "90%", yield: "4.5 tons/hectare" },
+                    { name: "Barley", suitability: "85%", yield: "4.2 tons/hectare" },
+                    { name: "Corn", suitability: "75%", yield: "6.0 tons/hectare" }
+                ];
+                
+                let recommendationsHTML = '';
+                crops.forEach(crop => {
+                    recommendationsHTML += `
+                        <div style="margin-bottom: 15px; padding: 10px; background-color: #f9f9f9; border-radius: 5px;">
+                            <h4>${crop.name}</h4>
+                            <p>Suitability: ${crop.suitability}</p>
+                            <p>Expected Yield: ${crop.yield}</p>
+                        </div>
+                    `;
+                });
+                
+                document.getElementById('crop-recommendations').innerHTML = recommendationsHTML;
+                document.getElementById('prediction-result').style.display = 'block';
+            });
+
+            // Fertilizer Calculator
+            document.getElementById('fertilizer-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const cropType = document.getElementById('crop-type').value;
+                const area = document.getElementById('area').value;
+                
+                // Mock fertilizer recommendations
+                const fertilizers = [
+                    { name: "Nitrogen (N)", amount: `${area * 50} kg` },
+                    { name: "Phosphorus (P₂O₅)", amount: `${area * 25} kg` },
+                    { name: "Potassium (K₂O)", amount: `${area * 30} kg` }
+                ];
+                
+                let fertilizerHTML = '';
+                fertilizers.forEach(fertilizer => {
+                    fertilizerHTML += `
+                        <p>${fertilizer.name}: ${fertilizer.amount}</p>
+                    `;
+                });
+                
+                document.getElementById('fertilizer-recommendations').innerHTML = fertilizerHTML;
+                document.getElementById('fertilizer-result').style.display = 'block';
+            });
+
+            // Community Chat functionality
+            const chatInput = document.querySelector('.chat-input input');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            document.querySelector('.chat-input button').addEventListener('click', function() {
+                if (chatInput.value.trim() !== '') {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message', 'user');
+                    messageElement.innerHTML = `<strong>You:</strong> ${chatInput.value}`;
+                    chatMessages.appendChild(messageElement);
+                    chatInput.value = '';
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Simulate response after a delay
+                    setTimeout(() => {
+                        const responses = [
+                            "That's interesting. I'll try that on my farm.",
+                            "Has anyone experienced issues with pests this season?",
+                            "The weather forecast looks good for next week.",
+                            "I've had good results with that fertilizer."
+                        ];
+                        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                        
+                        const farmers = ["Rajesh (Cotton Farmer)", "Suresh (Wheat Farmer)", "Vijay (Rice Farmer)", "Anil (Organic Farmer)"];
+                        const randomFarmer = farmers[Math.floor(Math.random() * farmers.length)];
+                        
+                        const responseElement = document.createElement('div');
+                        responseElement.classList.add('message', 'farmer');
+                        responseElement.innerHTML = `<strong>${randomFarmer}:</strong> ${randomResponse}`;
+                        chatMessages.appendChild(responseElement);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 1000);
+                }
+            });
+            
+            // Allow pressing Enter to send message
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.querySelector('.chat-input button').click();
+                }
+            });
+
+            // Disease Detection
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const resultArea = document.getElementById('resultArea');
+            const diseaseResult = document.getElementById('diseaseResult');
+            const treatmentRecommendation = document.getElementById('treatmentRecommendation');
+            
+            uploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    const fileName = fileInput.files[0].name;
+                    uploadArea.innerHTML = `
+                        <div class="upload-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>${fileName}</h3>
+                        <p>Click to select a different image</p>
+                    `;
+                }
+            });
+            
+            analyzeBtn.addEventListener('click', function() {
+                if (fileInput.files.length === 0) {
+                    alert('Please select an image first');
+                    return;
+                }
+                
+                // Simulate analysis
+                analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+                analyzeBtn.disabled = true;
+                
+                setTimeout(() => {
+                    const diseases = [
+                        { 
+                            name: "Leaf Rust", 
+                            confidence: "92%", 
+                            treatment: "Apply fungicide containing triazoles. Remove and destroy infected leaves. Ensure proper spacing between plants for air circulation."
+                        },
+                        { 
+                            name: "Powdery Mildew", 
+                            confidence: "87%", 
+                            treatment: "Apply sulfur or potassium bicarbonate-based fungicides. Improve air circulation. Avoid overhead watering."
+                        },
+                        { 
+                            name: "Bacterial Blight", 
+                            confidence: "78%", 
+                            treatment: "Apply copper-based bactericides. Remove infected plants. Use disease-free seeds."
+                        }
+                    ];
+                    
+                    const randomDisease = diseases[Math.floor(Math.random() * diseases.length)];
+                    
+                    diseaseResult.innerHTML = `
+                        <p><strong>Disease Detected:</strong> ${randomDisease.name}</p>
+                        <p><strong>Confidence:</strong> ${randomDisease.confidence}</p>
+                    `;
+                    
+                    treatmentRecommendation.innerHTML = `<p>${randomDisease.treatment}</p>`;
+                    
+                    resultArea.style.display = 'block';
+                    analyzeBtn.innerHTML = 'Analyze Image';
+                    analyzeBtn.disabled = false;
+                    
+                    // Scroll to results
+                    resultArea.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            });
+
+            // Chatbot functionality
+            const chatbotContainer = document.getElementById('chatbotContainer');
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            const closeChatbot = document.getElementById('closeChatbot');
+            const chatbotInput = document.getElementById('chatbotInput');
+            const chatbotMessages = document.getElementById('chatbotMessages');
+            const sendChatbotMessage = document.getElementById('sendChatbotMessage');
+            
+            chatbotToggle.addEventListener('click', function() {
+                chatbotContainer.classList.toggle('open');
+            });
+            
+            closeChatbot.addEventListener('click', function() {
+                chatbotContainer.classList.remove('open');
+            });
+            
+            function addChatbotMessage(message, isUser = false) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(isUser ? 'user' : 'farmer');
+                
+                if (isUser) {
+                    messageElement.innerHTML = `<strong>You:</strong> ${message}`;
+                } else {
+                    messageElement.innerHTML = `<strong>AgroBot:</strong> ${message}`;
+                }
+                
+                chatbotMessages.appendChild(messageElement);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            sendChatbotMessage.addEventListener('click', function() {
+                if (chatbotInput.value.trim() !== '') {
+                    const message = chatbotInput.value;
+                    addChatbotMessage(message, true);
+                    chatbotInput.value = '';
+                    
+                    // Simulate bot response
+                    setTimeout(() => {
+                        let response = "I'm sorry, I don't have information about that. Please contact our support team for more assistance.";
+                        
+                        if (message.toLowerCase().includes('weather')) {
+                            response = "The weather forecast for the next 7 days is generally favorable for farming activities with moderate temperatures and some rainfall expected on Wednesday.";
+                        } else if (message.toLowerCase().includes('price') || message.toLowerCase().includes('market')) {
+                            response = "Current market prices are stable. Wheat is at $210/ton, Rice at $320/ton, and Corn at $180/ton. Prices are expected to rise slightly in the coming weeks.";
+                        } else if (message.toLowerCase().includes('disease') || message.toLowerCase().includes('pest')) {
+                            response = "For disease and pest management, I recommend using our image analysis tool to identify specific issues. Generally, practicing crop rotation and using approved pesticides can help control most common problems.";
+                        } else if (message.toLowerCase().includes('fertilizer')) {
+                            response = "The right fertilizer depends on your soil type and crop. You can use our fertilizer calculator tool to get specific recommendations for your farm.";
+                        } else if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
+                            response = "Hello! How can I assist you with your farming questions today?";
+                        }
+                        
+                        addChatbotMessage(response);
+                    }, 1000);
+                }
+            });
+            
+            chatbotInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendChatbotMessage.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
