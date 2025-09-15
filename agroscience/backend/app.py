@@ -69,6 +69,7 @@
     
 #     crop = data.get('crop', 'wheat')
 #     area = float(data.get('area', 1))
+
 #     soil = data.get('soil', 'loamy')
     
 #     if crop not in crop_data:
