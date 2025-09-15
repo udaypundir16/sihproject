@@ -80,7 +80,7 @@
     
 #     nitrogen = crop_info['nitrogen'] * area * soil_info['nitrogen']
 #     phosphorus = crop_info['phosphorus'] * area * soil_info['phosphorus']
-#     potassium = crop_info['potassium'] * area * soil_info['potassium']
+#     potassium = crop_info['potassium'] * area *  soil_info['potassium']
     
 #     return jsonify({
 #         "nitrogen": round(nitrogen, 2),
